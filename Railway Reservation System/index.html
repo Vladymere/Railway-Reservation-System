@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BiyaheRail: Your Philippine Railway Companion</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="left-section">
+            <img src="BiyaheRail.jpg" alt="Train Image">
+        </div>
+        <div class="right-section">
+            <h1>BiyaheRail</h1>
+            <p>Your Philippine Railway Companion</p>
+            
+            <!-- Sign In Form -->
+            <div id="sign-in-form" class="form-container">
+                <h2>Sign In</h2>
+                <form action="login.php" method="POST">
+                    <label for="username">Username / Email Address</label>
+                    <input type="text" id="username" name="username" required>
+                    
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required>
+                    
+                    <div class="options">
+                        <label><input type="checkbox" name="remember"> Remember Me</label>
+                        <a href="#" onclick="toggleForm('forgot-password-form')">Forgot Password?</a>
+                    </div>
+                    
+                    <button type="submit" class="btn">Sign In</button>
+                    
+                    <div class="social-login">
+                        <p>Or Sign In with:</p>
+                        <button type="button" class="social-btn gmail">Gmail</button>
+                        <button type="button" class="social-btn facebook">Facebook</button>
+                    </div>
+                    
+                    <p>Don't have an account? <a href="#" onclick="toggleForm('sign-up-form')">Sign Up</a></p>
+                </form>
+            </div>
+
+            <!-- Sign Up Form -->
+            <div id="sign-up-form" class="form-container hidden">
+                <h2>Sign Up</h2>
+                <form action="signup.php" method="POST">
+                    <label for="signup-username">Username</label>
+                    <input type="text" id="signup-username" name="signup-username" required>
+                    
+                    <label for="signup-email">Email Address</label>
+                    <input type="email" id="signup-email" name="signup-email" required>
+                    
+                    <label for="signup-password">Password</label>
+                    <input type="password" id="signup-password" name="signup-password" required>
+                    
+                    <label for="confirm-password">Confirm Password</label>
+                    <input type="password" id="confirm-password" name="confirm-password" required>
+                    
+                    <button type="submit" class="btn">Sign Up</button>
+                    
+                    <p>Already have an account? <a href="#" onclick="toggleForm('sign-in-form')">Sign In</a></p>
+                </form>
+            </div>
+
+            <!-- Forgot Password Form -->
+            <div id="forgot-password-form" class="form-container hidden">
+                <h2>Forgot Password</h2>
+                <form action="forgot_password.php" method="POST">
+                    <label for="forgot-email">Email Address</label>
+                    <input type="email" id="forgot-email" name="forgot-email" required>
+                    <button type="submit" class="btn">Send Reset Link</button>
+                    <p><a href="#" onclick="toggleForm('sign-in-form')">Back to Sign In</a></p>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+    <script>
+        // Check if redirected after successful sign-up
+        if (window.location.search.includes('signup=success')) {
+            toggleForm('sign-in-form');
+        }
+
+        // Check for login errors
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.has('error')) {
+            const error = urlParams.get('error');
+            if (error === 'invalid_password') {
+                alert('Invalid password. Please try again.');
+            } else if (error === 'no_user') {
+                alert('No user found with that username/email. Please try again.');
+            }
+        }
+    </script>
+</body>
+</html>
